@@ -4,6 +4,8 @@ function love.load()
       cell = 64
       a = 1
       b = 3.5
+
+      page_number = 1
   
       itemExist = false
   
@@ -28,6 +30,69 @@ function love.load()
           image = love.graphics.newImage("exp_1_11zon.png"),  -- this field should hold the image for the item
           quantity = 1,
       }
+
+      potion1 = {
+        name = "Potion1",
+        description = "Heal 50 HP",
+        -- other relevant attributes
+        image = love.graphics.newImage("exp_1_11zon.png"),  -- this field should hold the image for the item
+        quantity = 1,
+    }
+
+    apple1 = {
+        name = "Apple1",
+        description = "Heal 10 HP",
+        image = love.graphics.newImage("hp_1_11zon.png"),  -- this field should hold the image for the item
+        quantity = 1,
+    }
+
+    potion2 = {
+        name = "Potion2",
+        description = "Heal 50 HP",
+        -- other relevant attributes
+        image = love.graphics.newImage("exp_1_11zon.png"),  -- this field should hold the image for the item
+        quantity = 1,
+    }
+
+    potion3 = {
+      name = "Potion3",
+      description = "Heal 50 HP",
+      -- other relevant attributes
+      image = love.graphics.newImage("exp_1_11zon.png"),  -- this field should hold the image for the item
+      quantity = 1,
+  }
+
+  potion4 = {
+    name = "Potion4",
+    description = "Heal 50 HP",
+    -- other relevant attributes
+    image = love.graphics.newImage("exp_1_11zon.png"),  -- this field should hold the image for the item
+    quantity = 1,
+}
+
+potion5 = {
+  name = "Potion5",
+  description = "Heal 50 HP",
+  -- other relevant attributes
+  image = love.graphics.newImage("exp_1_11zon.png"),  -- this field should hold the image for the item
+  quantity = 1,
+}
+
+potion6 = {
+    name = "Potion6",
+    description = "Heal 50 HP",
+    -- other relevant attributes
+    image = love.graphics.newImage("exp_1_11zon.png"),  -- this field should hold the image for the item
+    quantity = 1,
+  }
+
+  potion7 = {
+    name = "Potion7",
+    description = "Heal 50 HP",
+    -- other relevant attributes
+    image = love.graphics.newImage("exp_1_11zon.png"),  -- this field should hold the image for the item
+    quantity = 1,
+  }
   
       inventory = {
           stocked_item = {}, -- table containing the item to stock
@@ -42,7 +107,7 @@ function love.load()
   
     
   function love.draw()
-      drawInventoryInterface(a,b) -- drawing the interface on the app
+      drawInventoryInterface(a,b,page_number) -- drawing the interface on the app
   end
   
   function checkItem(pItem) -- function to verify existence of one itm and recuperate the position of the item on the inventory
@@ -97,10 +162,18 @@ function love.load()
   function love.keypressed(key)
       if key == "a" then
           addItemToInventory(apple)
+          addItemToInventory(apple1)
+          addItemToInventory(potion7)
       elseif key == "q" then
           addItemToInventory(potion)
+          addItemToInventory(potion1)
+          addItemToInventory(potion2)
+          addItemToInventory(potion3)
+          addItemToInventory(potion4)
+          addItemToInventory(potion5)
+          addItemToInventory(potion6)
       elseif key == "z" then
-  
+        page_number = page_number + 1
       elseif key == "e" then
   
       elseif key == "r" then
@@ -111,7 +184,7 @@ function love.load()
   end
   
   
-  function drawInventoryInterface(a,b)
+  function drawInventoryInterface(a,b,pNumber)
       
       -- Items details rectangle
       love.graphics.rectangle("line", (1/2) * cell, (1/2) * cell, 9*cell, 2*cell)
@@ -134,15 +207,19 @@ function love.load()
       love.graphics.setColor(1, 1, 1)
   
       --Page zone
-      love.graphics.print("<-" .. " Page :" .. " 1/5 " .. "->", 0.5*cell, 8.35*cell)
+      love.graphics.print("<-" .. " Page : " .. pNumber.. "/5 " .. "->", 0.5*cell, 8.35*cell)
   
       for i, v in ipairs(inventory.stocked_item) do
-  
-          love.graphics.print(v.name, a*cell, b*cell)
-          love.graphics.print("x " .. v.quantity, (a+2)*cell, b*cell)
-          b = b + 0.5
+        if pNumber == 1 and i < 10 then
+            love.graphics.print(inventory.stocked_item[i].name, a*cell, b*cell)
+            love.graphics.print("x " .. inventory.stocked_item[i].quantity, (a+2)*cell, b*cell)
+            b = b + 0.5
+        elseif pNumber == 2 and i > 9 and i < 20 then
+            love.graphics.print(inventory.stocked_item[i].name, a*cell, b*cell)
+            love.graphics.print("x " .. inventory.stocked_item[i].quantity, (a+2)*cell, b*cell)
+            b = b + 0.5
+        end
   
       end
-  end
-  
-        
+
+  end        
